@@ -501,10 +501,9 @@ html{
     z-index:1000;
 }
 .chat-box{
-    position:fixed;
-
-    bottom:120px;
-    right:30px;
+     position:fixed;
+    bottom:110px;
+    right:35px;
 
     width:320px;
 
@@ -578,17 +577,36 @@ html{
 }
 
 .featured-project{
+    background: rgba(0,212,255,0.08);
+    border: 1px solid #00d4ff;
+    border-radius: 20px;
 
-    background:rgba(0,212,255,0.08);
+    padding: 25px;
 
-    border:1px solid #00d4ff;
-
-    border-radius:20px;
-
-    padding:40px;
-
-    margin-bottom:40px;
+    text-align: center;     /* Center text */
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
+.featured-project h3{
+    font-size:2rem;
+    color:white;
+    margin:10px 0;
+}
+
+
+
+.featured-project .demo-btn:hover{
+    transform:translateY(-4px) scale(1.05);
+
+    box-shadow:
+    0 0 15px #00d4ff,
+    0 0 30px #00d4ff;
+}
+
 
 .quick-actions{
 
@@ -612,4 +630,370 @@ html{
     border-radius:8px;
 
     cursor:pointer;
+}
+.jarvis-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:35px;
+
+    cursor:pointer;
+
+    background:linear-gradient(135deg,#00d4ff,#7b61ff);
+
+    box-shadow:0 0 25px #00d4ff;
+
+    z-index:9999;
+
+    transition:0.3s;
+}
+
+.jarvis-btn:hover{
+    transform:scale(1.1);
+}
+
+/* Speaking animation */
+
+.jarvis-speaking{
+    animation:jarvisPulse 1s infinite;
+}
+
+@keyframes jarvisPulse{
+
+    0%{
+        box-shadow:0 0 15px #00d4ff;
+        transform:scale(1);
+    }
+
+    50%{
+        box-shadow:
+        0 0 30px #00d4ff,
+        0 0 60px #00d4ff;
+        transform:scale(1.15);
+    }
+
+    100%{
+        box-shadow:0 0 15px #00d4ff;
+        transform:scale(1);
+    }
+
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE DESIGN
+   ========================= */
+
+@media (max-width: 768px){
+
+    nav{
+        flex-direction:column;
+        gap:15px;
+        padding:20px;
+    }
+
+    nav ul{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:15px;
+    }
+
+    .hero{
+        margin-top:60px;
+        padding:20px;
+    }
+
+    .hero h1{
+        font-size:42px;
+        line-height:1.2;
+    }
+
+    .intro{
+        font-size:16px;
+    }
+
+    .buttons{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .buttons button{
+        width:220px;
+    }
+
+    .about h2,
+    .skills h2,
+    .projects h2,
+    .contact h2{
+        font-size:2.2rem;
+    }
+
+    .skills-grid{
+        grid-template-columns:1fr;
+    }
+
+    .project-grid{
+        grid-template-columns:1fr;
+    }
+
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .skill-card,
+    .project-card,
+    .contact-card{
+        width:100%;
+    }
+
+    .featured-project{
+        padding:20px;
+    }
+
+    .featured-project h3{
+        font-size:1.7rem;
+    }
+
+    .featured-project p{
+        font-size:14px;
+    }
+
+    .chat-box{
+        width:95%;
+        height:450px;
+
+        right:2.5%;
+        bottom:100px;
+    }
+
+    .jarvis-btn{
+        width:65px;
+        height:65px;
+        font-size:30px;
+    }
+
+    .chat-messages{
+        height:220px;
+    }
+}
+
+
+.ai-lab{
+    padding:80px 10%;
+    text-align:center;
+}
+
+.ai-lab h2{
+    font-size:3rem;
+    color:#00d4ff;
+    margin-bottom:40px;
+}
+
+.ai-lab .project-card{
+    min-height:220px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+}
+
+.ai-status{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.status-item{
+    background:rgba(0,212,255,0.1);
+    border:1px solid #00d4ff;
+    padding:10px 15px;
+    border-radius:12px;
+}
+
+.ai-progress{
+    padding:80px 10%;
+    text-align:center;
+}
+
+.ai-progress h2{
+    color:#00d4ff;
+    font-size:3rem;
+    margin-bottom:40px;
+}
+
+.progress-card{
+    max-width:800px;
+    margin:auto;
+    text-align:left;
+}
+
+.bar{
+    width:100%;
+    height:12px;
+    background:#1a1f35;
+    border-radius:20px;
+    margin-bottom:25px;
+}
+
+
+
+.bar span{
+    display:block;
+    width:0;
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        #00d4ff,
+        #7b61ff
+    );
+
+    transition:width 2s ease;
+}
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .skills-grid,
+    .project-grid,
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .buttons{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .ai-status{
+        flex-direction:column;
+    }
+
+    .chat-box{
+        width:95%;
+        right:2%;
+        bottom:90px;
+    }
+
+}
+.ai-terminal{
+    padding:80px 10%;
+    text-align:center;
+}
+
+.ai-terminal h2{
+    font-size:3rem;
+    color:#00d4ff;
+    margin-bottom:30px;
+}
+
+.terminal{
+
+    max-width:900px;
+    margin:auto;
+
+    background:#000;
+
+    border:1px solid #00d4ff;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    text-align:left;
+
+    font-family:Consolas, monospace;
+
+    color:#00ff88;
+
+    min-height:180px; /* add this */
+
+    box-shadow:0 0 20px rgba(0,212,255,0.4);
+
+}
+
+.terminal p{
+    margin:10px 0;
+}
+.line{
+
+    opacity:0;
+
+    animation:showLine 1s forwards;
+}
+
+.line:nth-child(1){
+    animation-delay:0s;
+}
+
+.line:nth-child(2){
+    animation-delay:1s;
+}
+
+.line:nth-child(3){
+    animation-delay:2s;
+}
+
+.line:nth-child(4){
+    animation-delay:3s;
+}
+
+@keyframes showLine{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+
+}
+
+.progress-fill{
+    width:0;
+    height:12px;
+
+    border-radius:10px;
+
+    background:linear-gradient(
+        90deg,
+        #00d4ff,
+        #7b61ff
+    );
+
+    transition:width 2s ease;
+}
+
+.terminal-line::after{
+
+    content:"|";
+
+    animation:blink 0.8s infinite;
+
+}
+
+@keyframes blink{
+
+    50%{
+        opacity:0;
+    }
+
 }

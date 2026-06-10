@@ -63,12 +63,29 @@ function speak(text){
 
     speech.voice =
     voices.find(v =>
-        v.name === "Google UK English Female"
-    );
+        v.name === "Google UK English male"
+    ) || voices[0];
 
-    speech.rate = 0.95;
-    speech.pitch = 1.15;
+    speech.rate = 1;
+    speech.pitch = 1.1;
     speech.volume = 1;
+
+    const jarvisBtn =
+    document.querySelector(".jarvis-btn");
+
+    // Start glow animation
+
+    if(jarvisBtn){
+        jarvisBtn.classList.add("jarvis-speaking");
+    }
+
+    speech.onend = () => {
+
+        if(jarvisBtn){
+            jarvisBtn.classList.remove("jarvis-speaking");
+        }
+
+    };
 
     speechSynthesis.speak(speech);
 
@@ -95,9 +112,48 @@ function sendMessage() {
         msg.includes("hey")
     ) {
 
-        reply = "Hello 👋 I'm JARVIS. Welcome to Abinesh's portfolio.";
+        reply = "Hello  I'm JARVIS. Welcome to Abinesh's portfolio.";
 
     }
+
+    else if(msg.includes("who is abinesh")){
+
+    reply =
+    "Abinesh is an AIML student passionate about Artificial Intelligence, Machine Learning and innovative technology.";
+}
+
+    else if(msg.includes("goal")){
+
+    reply =
+    "My goal is to become an AI Engineer and build impactful AI solutions that help people.";
+}
+
+    else if(msg.includes("why should i hire abinesh")){
+
+    reply =
+    "Abinesh combines AI, Machine Learning, Web Development and problem solving skills while actively building real-world projects.";
+}
+
+    else if(msg.includes("who is abinesh")){
+
+    reply =
+    "Abinesh is an AIML student passionate about Artificial Intelligence, Machine Learning and software development.";
+
+}
+
+else if(msg.includes("hire")){
+
+    reply =
+    "Abinesh combines AI, web development and problem-solving skills while actively building real-world projects.";
+
+}
+
+else if(msg.includes("goal")){
+
+    reply =
+    "His goal is to become an AI Engineer and build impactful AI solutions.";
+
+}
 
     // About
     else if (
@@ -220,7 +276,7 @@ function sendMessage() {
     else {
 
         reply =
-            "I don't know that yet 😅 Try skills, projects, github, linkedin or contact.";
+            reply = reply = "I couldn't find that information. For more details, please contact Abinesh via LinkedIn or email.";
 
     }
 
@@ -320,5 +376,102 @@ function quickCommand(text){
     document.getElementById("userInput").value = text;
 
     sendMessage();
+
+}
+function recruiterMode(){
+
+    document.getElementById("projects")
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+    speak(
+        "Recruiter mode activated. Displaying projects and achievements."
+    );
+}
+
+const progressSection =
+document.querySelector(".ai-progress");
+
+if(progressSection){
+
+    const observer =
+    new IntersectionObserver((entries)=>{
+
+        entries.forEach(entry=>{
+
+            if(entry.isIntersecting){
+
+                document
+                .querySelectorAll(".bar span")
+                .forEach(bar=>{
+
+                    bar.style.width = "0";
+
+                    setTimeout(()=>{
+
+                        bar.style.width =
+                        bar.dataset.width;
+
+                    },100);
+
+                });
+
+            }
+
+        });
+
+    },{
+
+        threshold:0.4
+
+    });
+
+    observer.observe(progressSection);
+
+}
+
+let count = 0;
+
+const timer = setInterval(()=>{
+
+    count++;
+
+    document.getElementById(
+        "projectCount"
+    ).innerText = count;
+
+    if(count >= 15){
+        clearInterval(timer);
+    }
+
+},100);
+const terminalLines = [
+"> Initializing Neural Network...",
+"> Loading Machine Learning Models...",
+"> Connecting JARVIS Assistant...",
+"> Status: READY ✅"
+];
+
+const terminal =
+document.querySelectorAll(".terminal-line");
+
+let i = 0;
+
+function runTerminal(){
+
+    if(i < terminalLines.length){
+
+        terminal[i].textContent =
+        terminalLines[i];
+
+        i++;
+
+        setTimeout(
+            runTerminal,
+            1000
+        );
+
+    }
 
 }
