@@ -466,3 +466,7 @@ button{
     transform:translateY(-10px);
     box-shadow:0 0 25px #00d4ff;
 }
+
+html{
+    scroll-behavior:smooth;
+}
