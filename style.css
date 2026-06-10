@@ -212,3 +212,23 @@ button{
 .skill-card h3{
     font-size:1.3rem;
 }
+
+
+
+.skill-card{
+    min-height:180px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+}
+
+.skill-card p{
+    margin-top:10px;
+    color:#b8c4d6;
+    font-size:0.9rem;
+    line-height:1.5;
+}
