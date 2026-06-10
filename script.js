@@ -12,209 +12,313 @@ window.onload = function () {
 
     });
 
-    // JARVIS Button
-    const jarvisBtn = document.querySelector(".jarvis-btn");
-    const chatBox = document.getElementById("chatBox");
+ const jarvisBtn = document.querySelector(".jarvis-btn");
+const chatBox = document.getElementById("chatBox");
 
-    if (jarvisBtn && chatBox) {
+let greeted = false;
 
-        jarvisBtn.onclick = () => {
+if(jarvisBtn && chatBox){
 
-            if (chatBox.style.display === "block") {
-                chatBox.style.display = "none";
-            } else {
-                chatBox.style.display = "block";
+    jarvisBtn.onclick = () => {
+
+        if(chatBox.style.display === "block"){
+
+            chatBox.style.display = "none";
+
+        }else{
+
+            chatBox.style.display = "block";
+
+            if(!greeted){
+
+                speak(
+                    "Hello . Welcome to Abinesh's portfolio. I am Jarvis. Feel free to explore my skills, projects and achievements."
+                );
+
+                greeted = true;
             }
 
-        };
+        }
 
-    }
+    };
 
-    // Enter Key Support
-    const userInput = document.getElementById("userInput");
-
-    if (userInput) {
-
-        userInput.addEventListener("keypress", function (event) {
-
-            if (event.key === "Enter") {
-                sendMessage();
-            }
-
-        });
-
-    }
-
-    // Welcome Voice
-    setTimeout(() => {
-
-        const speech = new SpeechSynthesisUtterance(
-            "Hello Abinesh. JARVIS online."
-        );
-
-        speech.rate = 1;
-        speech.pitch = 1;
-
-        speechSynthesis.speak(speech);
-
-    }, 1500);
+}
+    
 
 };
 
+// ==========================
+// SPEAK FUNCTION
+// ==========================
+
+function speak(text){
+
+    speechSynthesis.cancel();
+
+    const speech =
+    new SpeechSynthesisUtterance(text);
+
+    const voices =
+    speechSynthesis.getVoices();
+
+    speech.voice =
+    voices.find(v =>
+        v.name === "Google UK English Female"
+    );
+
+    speech.rate = 0.95;
+    speech.pitch = 1.15;
+    speech.volume = 1;
+
+    speechSynthesis.speak(speech);
+
+}
+
+// ==========================
+// SEND MESSAGE
+// ==========================
+
 function sendMessage() {
 
-    const input = document.getElementById("userInput");
-    const chatMessages = document.getElementById("chatMessages");
+    let input = document.getElementById("userInput");
 
     let msg = input.value.trim().toLowerCase();
 
     if (msg === "") return;
 
-    const time = new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit"
-    });
+    let reply = "";
 
-    chatMessages.innerHTML +=
-        `<br><br>
-        <b>You</b> <small>${time}</small>: ${msg}
-        <br>
-        <b>JARVIS</b>: Typing...`;
+    // Greetings
+    if (
+        msg.includes("hi") ||
+        msg.includes("hello") ||
+        msg.includes("hey")
+    ) {
 
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+        reply = "Hello 👋 I'm JARVIS. Welcome to Abinesh's portfolio.";
+
+    }
+
+    // About
+    else if (
+        msg.includes("who are you") ||
+        msg.includes("abinesh")
+    ) {
+
+        reply =
+            "Abinesh is an AIML student passionate about Artificial Intelligence, Machine Learning and Web Development.";
+
+    }
+
+    // Skills
+    else if (
+        msg.includes("skills") ||
+        msg.includes("show skills")
+    ) {
+
+        reply =
+            "Python, AI ML, Deep Learning, JavaScript, HTML CSS, MySQL, MongoDB and Scikit Learn.";
+
+        const skills = document.getElementById("skills");
+
+        if (skills) {
+            skills.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+
+    }
+
+    // Projects
+    else if (
+        msg.includes("projects") ||
+        msg.includes("show projects")
+    ) {
+
+        reply =
+            "Opening projects section.";
+
+        const projects = document.getElementById("projects");
+
+        if (projects) {
+            projects.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+
+    }
+
+    // Contact
+    else if (
+        msg.includes("contact") ||
+        msg.includes("email")
+    ) {
+
+        reply =
+            "You can contact Abinesh at neshabinesh2008@gmail.com";
+
+        const contact = document.getElementById("contact");
+
+        if (contact) {
+            contact.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+
+    }
+
+    // GitHub
+    else if (
+        msg.includes("github") ||
+        msg.includes("open github")
+    ) {
+
+        reply = "Opening GitHub.";
+
+        window.open(
+            "https://github.com/abinesh-yt",
+            "_blank"
+        );
+
+    }
+
+    // LinkedIn
+    else if (
+        msg.includes("linkedin") ||
+        msg.includes("open linkedin")
+    ) {
+
+        reply = "Opening LinkedIn.";
+
+        window.open(
+            "https://www.linkedin.com/in/abinesh-dev01/",
+            "_blank"
+        );
+
+    }
+
+    // Joke
+    else if (
+        msg.includes("joke")
+    ) {
+
+        reply =
+            "Why do programmers prefer dark mode? Because light attracts bugs! 😂";
+
+    }
+
+    // Resume
+    else if (
+        msg.includes("resume")
+    ) {
+
+        reply = "You can download Abinesh's resume from the Resume button above.";
+
+    }
+
+    // Default
+    else {
+
+        reply =
+            "I don't know that yet 😅 Try skills, projects, github, linkedin or contact.";
+
+    }
+
+    // Chat Messages
+
+    document.getElementById("chatMessages").innerHTML +=
+
+        "<br><br><b>You:</b> " + msg +
+
+        "<br><b>JARVIS:</b> " + reply;
+
+    const chatMessages =
+document.getElementById("chatMessages");
+
+chatMessages.scrollTop =
+chatMessages.scrollHeight;
+
+    // Speak Reply
+
+    speak(reply);
+
+    // Clear Input
 
     input.value = "";
 
-    setTimeout(() => {
+}
 
-        let reply = "";
+// ==========================
+// ENTER KEY
+// ==========================
 
-        if (
-            msg.includes("hi") ||
-            msg.includes("hello") ||
-            msg.includes("hey")
-        ) {
+document.addEventListener("DOMContentLoaded", () => {
 
-            reply = "Hello 👋 I'm JARVIS. Welcome to Abinesh's portfolio!";
+    const input =
+        document.getElementById("userInput");
 
-        }
+    if (input) {
 
-        else if (
-            msg.includes("who are you") ||
-            msg.includes("about")
-        ) {
+        input.addEventListener("keypress",
 
-            reply =
-                "I'm JARVIS, the AI assistant of Abinesh, an AIML student and future AI Engineer.";
+            function (event) {
 
-        }
+                if (event.key === "Enter") {
 
-        else if (msg.includes("name")) {
+                    sendMessage();
 
-            reply =
-                "My creator is Abinesh, an AIML student and future AI Engineer 😎";
+                }
 
-        }
+            }
 
-        else if (msg.includes("skills")) {
-
-            reply =
-                "Python, AI/ML, Deep Learning, HTML, CSS, JavaScript, MySQL, MongoDB and Scikit-Learn.";
-
-        }
-
-        else if (msg.includes("project")) {
-
-            reply =
-                "Portfolio Website, Birthday Wish Website and AI Spam Detection.";
-
-        }
-
-        else if (msg.includes("contact")) {
-
-            reply =
-                "Email: neshabinesh2008@gmail.com";
-
-        }
-
-        else if (msg.includes("github")) {
-
-            reply =
-                "GitHub: github.com/abinesh-yt";
-
-        }
-
-        else if (msg.includes("linkedin")) {
-
-            reply =
-                "LinkedIn profile available in Contact section.";
-
-        }
-
-        else if (msg.includes("college")) {
-
-            reply =
-                "Abinesh is pursuing AIML Engineering and building AI projects.";
-
-        }
-
-        else if (msg.includes("resume")) {
-
-            reply =
-                "Resume section is coming soon 🚀";
-
-        }
-
-        else if (msg.includes("joke")) {
-
-            reply =
-                "Why do programmers prefer dark mode? Because light attracts bugs 😂";
-
-        }
-
-        else if (msg.includes("open github")) {
-
-            window.open(
-                "https://github.com/abinesh-yt",
-                "_blank"
-            );
-
-            reply = "Opening GitHub 🚀";
-
-        }
-
-        else if (msg.includes("open linkedin")) {
-
-            reply = "Opening LinkedIn 🚀";
-
-        }
-
-        else {
-
-            reply =
-                "I don't know that yet 😅";
-
-        }
-
-        let content = chatMessages.innerHTML;
-
-        content = content.replace(
-            "<b>JARVIS</b>: Typing...",
-            `<b>JARVIS</b> <small>${time}</small>: ${reply}`
         );
 
-        chatMessages.innerHTML = content;
+    }
 
-        // Voice Reply
-        const speech = new SpeechSynthesisUtterance(reply);
+});
 
-        speech.rate = 1;
-        speech.pitch = 1;
+// ==========================
+// VOICE RECOGNITION
+// ==========================
 
-        speechSynthesis.speak(speech);
+function startListening() {
 
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+    if (
+        !('webkitSpeechRecognition' in window)
+    ) {
 
-    }, 1000);
+        alert(
+            "Speech Recognition not supported in this browser."
+        );
+
+        return;
+
+    }
+
+    const recognition =
+        new webkitSpeechRecognition();
+
+    recognition.lang = "en-US";
+
+    recognition.start();
+
+    recognition.onresult = function (event) {
+
+        const text =
+            event.results[0][0].transcript;
+
+        document.getElementById("userInput").value =
+            text;
+
+        sendMessage();
+
+    };
+
+}
+function quickCommand(text){
+
+    document.getElementById("userInput").value = text;
+
+    sendMessage();
 
 }

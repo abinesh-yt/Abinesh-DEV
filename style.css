@@ -548,3 +548,68 @@ html{
 
     margin-bottom:10px;
 }
+
+
+.jarvis-status{
+
+    color:#00d4ff;
+
+    font-weight:bold;
+
+    margin-top:20px;
+
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+    0%{
+        opacity:0.5;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0.5;
+    }
+
+}
+
+.featured-project{
+
+    background:rgba(0,212,255,0.08);
+
+    border:1px solid #00d4ff;
+
+    border-radius:20px;
+
+    padding:40px;
+
+    margin-bottom:40px;
+}
+
+.quick-actions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin:10px 0;
+
+    justify-content:center;
+}
+
+.quick-actions button{
+
+    padding:8px 12px;
+
+    font-size:12px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+}
