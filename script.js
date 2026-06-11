@@ -1,3 +1,32 @@
+const auraKnowledge = {
+
+    "machine learning":
+    "Machine Learning enables computers to learn from data.",
+
+    "artificial intelligence":
+    "Artificial Intelligence focuses on creating intelligent systems.",
+
+    "python":
+    "Python is widely used in AI, automation and web development.",
+
+    "deep learning":
+    "Deep Learning uses neural networks to solve complex problems.",
+
+    "abinesh":
+    "Abinesh is an AIML student passionate about Artificial Intelligence.",
+
+    "skills":
+    "Python, AI/ML, Deep Learning, JavaScript, HTML, CSS, MySQL and MongoDB.",
+
+    "projects":
+    "AI Spam Detection, Portfolio Website and Birthday Wish Website."
+
+};
+
+let currentAssistant = "jarvis";
+
+
+
 window.onload = function () {
 
     // Cursor Glow
@@ -11,6 +40,8 @@ window.onload = function () {
         }
 
     });
+
+
 
  const jarvisBtn = document.querySelector(".jarvis-btn");
 const chatBox = document.getElementById("chatBox");
@@ -53,6 +84,9 @@ if(jarvisBtn && chatBox){
 
 function speak(text){
 
+    const jarvisBtn =
+    document.querySelector(".jarvis-btn");
+
     speechSynthesis.cancel();
 
     const speech =
@@ -61,17 +95,26 @@ function speak(text){
     const voices =
     speechSynthesis.getVoices();
 
+if(currentAssistant === "aura"){
+
     speech.voice =
     voices.find(v =>
-        v.name === "Google UK English male"
+        v.name.includes("Female")
     ) || voices[0];
 
-    speech.rate = 1;
-    speech.pitch = 1.1;
-    speech.volume = 1;
+    speech.pitch = 1.3;
 
-    const jarvisBtn =
-    document.querySelector(".jarvis-btn");
+}
+else{
+
+    speech.voice =
+    voices.find(v =>
+        v.name.includes("Male")
+    ) || voices[0];
+
+    speech.pitch = 0.9;
+
+}
 
     // Start glow animation
 
@@ -91,6 +134,49 @@ function speak(text){
 
 }
 
+function auraReply(message){
+
+    message = message.toLowerCase();
+
+    for(let key in auraKnowledge){
+
+        if(message.includes(key)){
+            return auraKnowledge[key];
+        }
+
+    }
+
+    // AURA Personality
+
+    if(message.includes("how are you")){
+        return "I'm doing great! I've been helping visitors explore Abinesh's AI portfolio today.";
+    }
+
+    if(message.includes("what can you do")){
+        return "I can explain AI concepts, showcase projects, introduce Abinesh's skills and guide recruiters through this portfolio.";
+    }
+
+    if(message.includes("who are you")){
+        return "I'm AURA, an AI companion created by Abinesh to assist visitors and recruiters.";
+    }
+
+    if(message.includes("are you real")){
+        return "I'm a virtual AI assistant built into this portfolio, but I'm always happy to help.";
+    }
+
+    if(message.includes("thank")){
+        return "You're welcome! 😊";
+    }
+
+    if(message.includes("bye")){
+        return "Goodbye! Thanks for visiting Abinesh's portfolio. 🚀";
+    }
+
+    // Default Reply
+
+    return "I'm still learning. Please ask about AI, projects, skills or contact information.";
+}
+
 // ==========================
 // SEND MESSAGE
 // ==========================
@@ -105,6 +191,13 @@ function sendMessage() {
 
     let reply = "";
 
+    if(currentAssistant === "aura"){
+
+    reply = auraReply(msg);
+
+}
+else{
+
     // Greetings
     if (
         msg.includes("hi") ||
@@ -116,17 +209,11 @@ function sendMessage() {
 
     }
 
-    else if(msg.includes("who is abinesh")){
 
-    reply =
-    "Abinesh is an AIML student passionate about Artificial Intelligence, Machine Learning and innovative technology.";
-}
 
-    else if(msg.includes("goal")){
 
-    reply =
-    "My goal is to become an AI Engineer and build impactful AI solutions that help people.";
-}
+
+
 
     else if(msg.includes("why should i hire abinesh")){
 
@@ -272,21 +359,34 @@ else if(msg.includes("goal")){
 
     }
 
+    
+
     // Default
-    else {
+else{
+
+    reply = auraReply(msg);
+
+    if(!reply){
 
         reply =
-            reply = reply = "I couldn't find that information. For more details, please contact Abinesh via LinkedIn or email.";
+        "I'm still learning. Please ask about AI, projects, skills, or contact information.";
 
     }
 
+}}
+
     // Chat Messages
 
-    document.getElementById("chatMessages").innerHTML +=
+let botName =
+currentAssistant === "aura"
+? "AURA"
+: "JARVIS";
 
-        "<br><br><b>You:</b> " + msg +
+document.getElementById("chatMessages").innerHTML +=
 
-        "<br><b>JARVIS:</b> " + reply;
+"<br><br><b>You:</b> " + msg +
+
+"<br><b>" + botName + ":</b> " + reply;
 
     const chatMessages =
 document.getElementById("chatMessages");
@@ -389,6 +489,46 @@ function recruiterMode(){
         "Recruiter mode activated. Displaying projects and achievements."
     );
 }
+function setAssistant(name){
+
+    currentAssistant = name;
+
+    const header =
+    document.querySelector(".chat-header");
+
+    if(name === "jarvis"){
+
+        document.getElementById(
+"userInput"
+).placeholder =
+"Ask JARVIS...";
+
+        header.innerHTML =
+        "🤖 JARVIS AI";
+
+        speak(
+            "JARVIS activated."
+        );
+
+    }
+
+    else{
+
+        document.getElementById(
+"userInput"
+).placeholder =
+"Ask AURA...";
+
+        header.innerHTML =
+        "👩 AURA AI";
+
+        speak(
+            "Hello. I am AURA, Abinesh's AI companion."
+        );
+
+    }
+
+}
 
 const progressSection =
 document.querySelector(".ai-progress");
@@ -431,21 +571,26 @@ if(progressSection){
 
 }
 
-let count = 0;
+const projectCount =
+document.getElementById("projectCount");
 
-const timer = setInterval(()=>{
+if(projectCount){
 
-    count++;
+    let count = 0;
 
-    document.getElementById(
-        "projectCount"
-    ).innerText = count;
+    const timer = setInterval(()=>{
 
-    if(count >= 15){
-        clearInterval(timer);
-    }
+        count++;
 
-},100);
+        projectCount.innerText = count;
+
+        if(count >= 15){
+            clearInterval(timer);
+        }
+
+    },100);
+
+}
 const terminalLines = [
 "> Initializing Neural Network...",
 "> Loading Machine Learning Models...",
@@ -475,3 +620,4 @@ function runTerminal(){
     }
 
 }
+runTerminal();

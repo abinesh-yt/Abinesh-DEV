@@ -997,3 +997,88 @@ html{
     }
 
 }
+body::before{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+
+    background:
+    radial-gradient(circle,#00d4ff 1px,transparent 1px);
+
+    background-size:60px 60px;
+
+    opacity:0.15;
+
+    animation:moveGrid 20s linear infinite;
+
+    z-index:-1;
+}
+
+@keyframes moveGrid{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(60px);
+    }
+}
+
+.ai-orb{
+    position:fixed;
+
+    width:400px;
+    height:400px;
+
+    background:radial-gradient(
+        circle,
+        rgba(0,212,255,0.25),
+        transparent 70%
+    );
+
+    border-radius:50%;
+
+    top:20%;
+    left:5%;
+
+    filter:blur(50px);
+
+    z-index:-1;
+
+    animation:floatOrb 8s ease-in-out infinite;
+}
+
+@keyframes floatOrb{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-50px);
+    }
+
+}
+
+.assistant-switch{
+
+    display:flex;
+    gap:10px;
+
+    margin-bottom:10px;
+}
+
+.assistant-switch button{
+
+    flex:1;
+
+    padding:10px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+}
